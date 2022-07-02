@@ -3,27 +3,19 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract TodoList {
-
-    uint public taskCount;
     struct Todo{
-        uint id;
-        string title;
         string description;
         bool completed;
     }
-    mapping(uint => Todo) public tasks;
-    // Todo[] public tasks;
+    Todo[] public todos;
 
-    constructor() public {
-        createTask("dummy Task", "Lorem");
+    function createTodo(string memory _description) public{
+        todos.push(Todo(_description,false));
     }
-
-    function createTask(string memory _title , string memory _description) public{
-
-        Todo memory newTask = Todo(taskCount,_title,_description,false);
-        tasks[taskCount]= newTask;
-        taskCount++;
-        // todos[_id] = newTask;
-        // tasks.push(newTask);
+    function updateText(uint _index,string memory _description) public {
+        todos[_index].description = _description;
+    }
+    function toggleCompleted(uint _index) public{
+        todos[_index].completed = !todos[_index].completed;
     }
 }
